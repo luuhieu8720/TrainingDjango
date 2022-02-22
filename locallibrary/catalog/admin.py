@@ -23,7 +23,6 @@ class BookAdmin(admin.ModelAdmin):
 
     inlines = [BooksInstanceInline]
 
-# Register the Admin classes for BookInstance using the decorator
 @admin.register(BookInstance)
 class BookInstanceAdmin(admin.ModelAdmin):
     list_display = ('book', 'imprint', 'id', 'status', 'due_back')
