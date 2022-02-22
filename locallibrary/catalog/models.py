@@ -1,7 +1,10 @@
 from django.db import models
 from django.urls import reverse 
-import uuid
 from django.utils.translation import ugettext as _
+from django.contrib.auth.models import User
+from datetime import date
+import uuid
+# Create your models here.
 
 class Genre(models.Model):
     name = models.CharField(max_length=200, help_text=_('Enter a book genre (e.g. Science Fiction)'))
@@ -29,10 +32,18 @@ class Book(models.Model):
     display_genre.short_description = 'Genre'
 
 class BookInstance(models.Model):
+    class Meta:
+        permissions = (("can_mark_returned", "Set book as returned"),)
+
+    @property
+    def is_overdue(self):
+        return self.due_back and date.today() > self.due_back
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text=_('Unique ID for this particular book across whole library'))
     book = models.ForeignKey('Book', on_delete=models.RESTRICT, null=True)
     imprint = models.CharField(max_length=200)
     due_back = models.DateField(null=True, blank=True)
+    borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     LOAN_STATUS = (
         ('m', 'Maintenance'),
