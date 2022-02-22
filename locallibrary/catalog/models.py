@@ -2,8 +2,8 @@ from django.db import models
 from django.urls import reverse 
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
-from datetime import date
 import uuid
+from datetime import date
 # Create your models here.
 
 class Genre(models.Model):
