@@ -15,5 +15,6 @@
         <li><strong>{% translate "Copies available:" %}</strong>{{ num_instances_available }}</li>
         <li><strong>{% translate "Authors:" %}</strong>{{ num_authors }}</li>
         <li><strong>{% translate "Genres:" %}</strong>{{ num_genres }}</li>
+        <p>{% translate "You have visited this page" %} {{ num_visits }} {% translate "time" %}{{ num_visits|pluralize }}.</p>
     </ul>
 {% endblock %}
